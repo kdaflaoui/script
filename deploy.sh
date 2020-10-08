@@ -14,12 +14,22 @@ if  [ $1 == "--Create" ]; then
 	
 	echo "Create option..."
 	
+	# define docker number
 	nb_machine=1
-	
 	[ $2 != "" ] && nb_machine=$2
 	
-	for i in $(seq 1 $nb_machine); do
-	
+	# Setting min and max
+	min=1
+	max=0
+
+	# Get idmax
+	idmax=`docker ps -a --format '{{ .Names }}' | awk -F "-" '$0 ~ user"-alpine" { print $3 }'| sort -r | head -1`
+
+	# resetting min and max
+	min=$(($idmax + 1))
+	max=$(($idmax + $nb_machine))
+
+	for i in $(seq $min $max); do
 		docker run -tid --name $USER-alpine-$i alpine:latest 
 		echo "The container $USER-alpine-$i created"	
 	done
