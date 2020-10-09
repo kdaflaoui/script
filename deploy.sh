@@ -10,9 +10,9 @@
 ##############################################################
 
 
-if  [ $1 == "--Create" ]; then
+if  [ $1 == "--create" ]; then
 	
-	echo "Create option..."
+	echo""
 	
 	# define docker number
 	nb_machine=1
@@ -36,21 +36,19 @@ if  [ $1 == "--Create" ]; then
 	
 	echo "Number of instance created is : $2 "	
 
-elif [ $1 == "--Drop" ]; then
+elif [ $1 == "--drop" ]; then
 	echo "Delete option..."
 	docker rm -f $(docker ps | grep $USER-alpine | awk '{ print $1 }')
 
-elif [ $1 == "--Info" ]; then
-	echo "Info option..."
+elif [ $1 == "--info" ]; then
+	echo ""
 
-elif [ $1 == "--Start" ]; then
-	echo "Restar option"
-	for i in $(seq 1 10); do
-		echo $i
-	done
+elif [ $1 == "--start" ]; then
+	echo ""
+	docker start $(docker ps -a | grep $USER-alpine | awk '{ print $1 }')
 
-elif [ $1 == "--Ansible" ]; then
-	echo "Ansible option..."
+elif [ $1 == "--ansible" ]; then
+	echo ""
 
 else
 	echo "
