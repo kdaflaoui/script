@@ -42,6 +42,10 @@ elif [ $1 == "--drop" ]; then
 
 elif [ $1 == "--info" ]; then
 	echo ""
+	for container in $(docker ps -a | grep $USER-alpine | awk '{ print $1 }'); do
+		docker inspect $container
+	done
+
 
 elif [ $1 == "--start" ]; then
 	echo ""
